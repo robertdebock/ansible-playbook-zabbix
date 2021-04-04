@@ -1,37 +1,42 @@
-<<<<<<< HEAD
-resource "digitalocean_ssh_key" "robertdebock" {
-=======
-module "ssh_key" {
-  source     = "robertdebock/ssh_key/digitalocean"
-  version    = "2.0.0"
->>>>>>> f6dbc31f2fe5704d06e226c7fa0ec235506627d7
+resource "digitalocean_ssh_key" "default" {
   name       = "Robert de Bock"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCWswOogkZz/ihQA0lENCwDwSzmtmBWtFwzIzDlfa+eb4rBt6rZBg7enKeMqYtStI/NDneBwZUFBDIMu5zJTbvg7A60/WDhWXZmU21tZnm8K7KREFYOUndc6h//QHig6IIaIwwBZHF1NgXLtZ0qrUUlNU5JSEhDJsObMlPHtE4vFP8twPnfc7hxAnYma5+knU6qTMCDvhBE5tGJdor4UGeAhu+SwSVDloYtt1vGTmnFn8M/OD/fRMksusPefxyshJ37jpB4jY/Z9vzaNHwcj33prwl1b/xRfxr/+KRJsyq+ZKs9u2TVw9g4p+XLdfDtzZ8thR2P3x3MFrZOdFmCbo/5"
+  public_key = file("/Users/robertdb/.ssh/id_rsa.pub")
 }
 
-resource "digitalocean_droplet" "server" {
+resource "digitalocean_droplet" "zabbix_server" {
   image    = "centos-8-x64"
-  name     = "server"
+  name     = "zabbix-server.meinit.nl"
   region   = "ams3"
   size     = "s-2vcpu-4gb"
-  ssh_keys = [digitalocean_ssh_key.robertdebock.id]
+  ssh_keys = [digitalocean_ssh_key.default.id]
 }
 
-resource "digitalocean_droplet" "agent" {
+resource "digitalocean_droplet" "mysql_server" {
   image    = "centos-8-x64"
-  name     = "agent"
+  name     = "mysql-server.meinit.nl"
   region   = "ams3"
-  size     = "s-1vcpu-1gb"
-  ssh_keys = [digitalocean_ssh_key.robertdebock.id]
+  size     = "s-2vcpu-4gb"
+  ssh_keys = [digitalocean_ssh_key.default.id]
 }
 
-output "server" {
-  value = digitalocean_droplet.server.ipv4_address
+data "cloudflare_zones" "meinit_nl" {
+  filter {
+    name = "meinit.nl"
+  }
 }
-<<<<<<< HEAD
 
-output "agent" {
-  value = digitalocean_droplet.agent.ipv4_address
+resource "cloudflare_record" "zabbix_server" {
+  zone_id = data.cloudflare_zones.meinit_nl.zones[0].id
+  name    = "zabbix-server"
+  value   = digitalocean_droplet.zabbix_server.ipv4_address
+  type    = "A"
+  ttl     = 300
 }
-=======
->>>>>>> f6dbc31f2fe5704d06e226c7fa0ec235506627d7
+
+resource "cloudflare_record" "mysql_server" {
+  zone_id = data.cloudflare_zones.meinit_nl.zones[0].id
+  name    = "mysql-server"
+  value   = digitalocean_droplet.mysql_server.ipv4_address
+  type    = "A"
+  ttl     = 300
+}

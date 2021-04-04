@@ -2,6 +2,8 @@
 roles:
   - name: robertdebock.bootstrap
   - name: robertdebock.buildtools
+  - name: robertdebock.certbot
+  - name: robertdebock.common
   - name: robertdebock.container_docs
   - name: robertdebock.core_dependencies
   - name: robertdebock.epel

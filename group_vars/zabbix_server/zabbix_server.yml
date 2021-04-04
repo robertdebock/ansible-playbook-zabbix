@@ -1,0 +1,4 @@
+---
+
+zabbix_server_database_host: "{{ groups['mysql_server'][0] }}"
+

@@ -1,4 +1,0 @@
----
-
-zabbix_agent_server_address: "{{ groups['server'][0] }}"
-zabbix_agent_server_active_address: "{{ groups['server'][0] }}"

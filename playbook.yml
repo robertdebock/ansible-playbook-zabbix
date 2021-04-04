@@ -11,17 +11,17 @@
         state: present
       register: terraform
 
-    - name: add terraform host server to inventory
+    - name: add terraform zabbix_server host to inventory
       add_host:
-        name: "{{ terraform.outputs.server.value }}"
+        name: "{{ terraform.outputs.zabbix_server.value }}"
         groups:
-           - server
+           - zabbix_server
 
-    - name: add terraform host agent to inventory
+    - name: add terraform mysql_server host to inventory
       add_host:
-        name: "{{ terraform.outputs.agent.value }}"
+        name: "{{ terraform.outputs.mysql_server.value }}"
         groups:
-           - agents
+           - mysql_server
 
 - name: setup shared resources
   hosts: all
@@ -31,12 +31,21 @@
 
   roles:
     - role: robertdebock.bootstrap
+    - role: robertdebock.common
     - role: robertdebock.zabbix_repository
     - role: robertdebock.zabbix_agent
 
-<<<<<<< HEAD
-- name: setup server resources
-  hosts: server
+- name: setup mysql_server resources
+  hosts: mysql_server
+  become: yes
+  gather_facts: yes
+  remote_user: root
+
+  roles:
+    - role: robertdebock.mysql
+
+- name: setup zabbix_server resources
+  hosts: zabbix_server
   become: yes
   gather_facts: yes
   remote_user: root
@@ -45,35 +54,12 @@
     - role: robertdebock.buildtools
     - role: robertdebock.container_docs
     - role: robertdebock.core_dependencies
-    - role: robertdebock.mysql
     - role: robertdebock.epel
     - role: robertdebock.selinux
     - role: robertdebock.python_pip
     - role: robertdebock.openssl
     - role: robertdebock.httpd
+    - role: robertdebock.certbot
     - role: robertdebock.php
-    - role: robertdebock.zabbix_agent
     - role: robertdebock.zabbix_server
     - role: robertdebock.zabbix_web
-=======
-    - name: flush handlers
-      meta: flush_handlers
-
-    - name: create rancher server container
-      docker_container:
-        name: rancher
-        image: rancher/rancher
-        restart_policy: always
-        privileged: yes
-        ports:
-          - "80:80"
-          - "443:443"
-
-    - name: show rancher endpoint
-      debug:
-        msg: "Rancher is installed at https://{{ ansible_fqdn }}/"
-
-  handlers:
-    - name: reboot
-      reboot:
->>>>>>> f6dbc31f2fe5704d06e226c7fa0ec235506627d7
