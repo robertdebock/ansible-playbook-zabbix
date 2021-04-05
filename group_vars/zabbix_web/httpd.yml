@@ -1,0 +1,6 @@
+---
+
+httpd_vhosts:
+  - name: docroot
+    servername: zabbix.meinit.nl
+    documentroot: /var/www/html/zabbix

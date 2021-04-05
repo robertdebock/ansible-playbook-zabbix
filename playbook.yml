@@ -82,7 +82,6 @@
     - role: robertdebock.python_pip
     - role: robertdebock.openssl
     - role: robertdebock.httpd
-    - role: robertdebock.certbot
     - role: robertdebock.php
-    - role: robertdebock.zabbix_server
     - role: robertdebock.zabbix_web
+    - role: robertdebock.certbot
