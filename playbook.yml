@@ -71,7 +71,7 @@
     - role: robertdebock.zabbix_server
 
 - name: setup zabbix_web resources
-  hosts: zabbix_server
+  hosts: zabbix_web
   become: yes
   gather_facts: yes
   remote_user: root
