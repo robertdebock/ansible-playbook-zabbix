@@ -11,4 +11,4 @@ mysql_users:
   - name: zabbix
     password: zabbix
     priv: "zabbix.*:ALL"
-    host_all: yes
+    host: "%"
