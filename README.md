@@ -67,9 +67,5 @@ Finally, login. (URL displayed at the end of the play.)
 ├── group_vars - Variables used by Ansible.
 ├── roles - Where roles will be stored.
 │   └── requirements.yml - What roles to download.
-<<<<<<< HEAD
-└── terraform - Infrastructure.
-=======
 └── terraform - A description of the infrastrucure.
->>>>>>> f6dbc31f2fe5704d06e226c7fa0ec235506627d7
 ```
