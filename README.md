@@ -1,5 +1,26 @@
 # Ansible playbook for Zabbix
 
+## Overview
+
+```
++--- floating ip ---+
+|                   |
++-------------------+
+          |
+          V
++--- zabbix_web ---+    +--- zabbix_server ---+
+| - :80/tcp        | -> | - :10050/tcp        |
+| - :443/tcp       |    | - :10051/tcp        |
+| - :10051/tcp     |    |                     |
++------------------+    +---------------------+
+             |                |
+             V                V
+           +--- mysql_server ---+
+           | - :3306/tcp        |
+           | - :10051/tcp       |
+           +--------------------+
+```
+
 ## Setup
 
 1. Download the Ansible roles:
