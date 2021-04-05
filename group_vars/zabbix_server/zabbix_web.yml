@@ -1,4 +1,0 @@
----
-
-zabbix_web_mysql_connection: network
-zabbix_web_server: https://{{ groups['mysql_server'][0] }}/zabbix/

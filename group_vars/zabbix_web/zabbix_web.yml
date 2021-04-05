@@ -1,0 +1,5 @@
+---
+
+zabbix_web_mysql_connection: network
+zabbix_web_server: "{{ groups['zabbix_server'][0] }}"
+zabbix_web_database_host: "{{ groups['mysql_server'][0] }}"

@@ -1,0 +1,4 @@
+---
+
+zabbix_agent_server_address: 127.0.0.1
+zabbix_agent_server_active_address: 127.0.0.1

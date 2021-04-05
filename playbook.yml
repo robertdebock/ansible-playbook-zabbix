@@ -11,6 +11,12 @@
         state: present
       register: terraform
 
+    - name: add terraform zabbix_web host to inventory
+      add_host:
+        name: "{{ terraform.outputs.zabbix_web.value }}"
+        groups:
+           - zabbix_web
+
     - name: add terraform zabbix_server host to inventory
       add_host:
         name: "{{ terraform.outputs.zabbix_server.value }}"
@@ -44,6 +50,17 @@
   roles:
     - role: robertdebock.mysql
 
+- name: setup zabbix_server and zabbix_web resources
+  hosts: zabbix_server:zabbix_web
+  become: yes
+  gather_facts: yes
+  remote_user: root
+
+  roles:
+    - role: robertdebock.buildtools
+    - role: robertdebock.selinux
+    - role: robertdebock.software
+
 - name: setup zabbix_server resources
   hosts: zabbix_server
   become: yes
@@ -51,11 +68,17 @@
   remote_user: root
 
   roles:
-    - role: robertdebock.buildtools
-    - role: robertdebock.container_docs
+    - role: robertdebock.zabbix_server
+
+- name: setup zabbix_web resources
+  hosts: zabbix_server
+  become: yes
+  gather_facts: yes
+  remote_user: root
+
+  roles:
     - role: robertdebock.core_dependencies
     - role: robertdebock.epel
-    - role: robertdebock.selinux
     - role: robertdebock.python_pip
     - role: robertdebock.openssl
     - role: robertdebock.httpd
