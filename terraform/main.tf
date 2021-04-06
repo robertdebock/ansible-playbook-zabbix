@@ -97,7 +97,7 @@ resource "digitalocean_firewall" "database" {
 
 resource "digitalocean_firewall" "zabbix_agent" {
   name        = "zabbix-agent"
-  droplet_ids = [digitalocean_droplet.zabbix_web.id]
+  droplet_ids = [digitalocean_droplet.zabbix_web.id,digitalocean_droplet.mysql_server.id]
   inbound_rule {
     protocol         = "tcp"
     port_range       = "10050"
