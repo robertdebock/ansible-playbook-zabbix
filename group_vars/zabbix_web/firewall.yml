@@ -1,0 +1,7 @@
+---
+
+firewall_services:
+  - name: ssh
+  - name: http
+  - name: https
+  - name: zabbix-agent

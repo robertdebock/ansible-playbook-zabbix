@@ -111,7 +111,7 @@ resource "digitalocean_firewall" "zabbix_server" {
   inbound_rule {
     protocol         = "tcp"
     port_range       = "10051"
-    source_addresses = [digitalocean_droplet.zabbix_server.ipv4_address, digitalocean_droplet.zabbix_web.ipv4_address, digitalocean_droplet.mysql_server.ipv4_address]
+    source_addresses = ["0.0.0.0/0", "::/0"]
   }
 }
 

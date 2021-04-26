@@ -1,0 +1,6 @@
+---
+
+firewall_services:
+  - name: ssh
+  - name: mysql
+  - name: zabbix-agent

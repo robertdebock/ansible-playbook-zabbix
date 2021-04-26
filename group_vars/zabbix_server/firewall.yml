@@ -1,0 +1,7 @@
+---
+
+firewall_services:
+  - name: ssh
+  - name: 10051
+    protocol: tcp
+  - name: zabbix-agent
