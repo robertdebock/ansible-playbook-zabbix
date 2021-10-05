@@ -45,6 +45,7 @@
     - role: robertdebock.epel
     - role: robertdebock.fail2ban
     - role: robertdebock.logwatch
+    - role: robertdebock.update
     - role: robertdebock.maintenance
     - role: robertdebock.unowned_files
     - role: robertdebock.rsyslog

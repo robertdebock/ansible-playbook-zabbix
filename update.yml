@@ -1,0 +1,39 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: create machines
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: apply terraform code
+      terraform:
+        project_path: ./terraform
+        state: present
+      register: terraform
+
+    - name: add terraform zabbix_web host to inventory
+      add_host:
+        name: "{{ terraform.outputs.zabbix_web.value }}"
+        groups:
+           - zabbix_web
+
+    - name: add terraform zabbix_server host to inventory
+      add_host:
+        name: "{{ terraform.outputs.zabbix_server.value }}"
+        groups:
+           - zabbix_server
+
+    - name: add terraform mysql_server host to inventory
+      add_host:
+        name: "{{ terraform.outputs.mysql_server.value }}"
+        groups:
+           - mysql_server
+
+- name: update machines
+  hosts: all
+  become: yes
+  gather_facts: yes
+  remote_user: root
+
+  roles:
+    - role: robertdebock.update
