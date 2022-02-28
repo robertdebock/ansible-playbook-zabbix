@@ -1,7 +1,5 @@
 ---
 roles:
-  - name: robertdebock.aide
-  - name: robertdebock.auto_update
   - name: robertdebock.bootstrap
   - name: robertdebock.buildtools
   - name: robertdebock.certbot
@@ -9,11 +7,8 @@ roles:
   - name: robertdebock.core_dependencies
   - name: robertdebock.digitalocean_agent
   - name: robertdebock.epel
-  - name: robertdebock.fail2ban
   - name: robertdebock.firewall
   - name: robertdebock.httpd
-  - name: robertdebock.logwatch
-  - name: robertdebock.maintenance
   - name: robertdebock.mysql
   - name: robertdebock.openssl
   - name: robertdebock.php
@@ -22,8 +17,6 @@ roles:
   - name: robertdebock.rsyslog
   - name: robertdebock.selinux
   - name: robertdebock.software
-  - name: robertdebock.unowned_files
-  - name: robertdebock.update
   - name: robertdebock.zabbix_agent
   - name: robertdebock.zabbix_repository
   - name: robertdebock.zabbix_server

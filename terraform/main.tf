@@ -4,7 +4,7 @@ resource "digitalocean_ssh_key" "default" {
 }
 
 resource "digitalocean_droplet" "zabbix_web" {
-  image    = "centos-8-x64"
+  image    = "centos-stream-8-x64"
   name     = "zabbix-web.meinit.nl"
   region   = var.region
   size     = local.zabbix_web_droplet_size
@@ -17,7 +17,7 @@ resource "digitalocean_floating_ip" "zabbix" {
 }
 
 resource "digitalocean_droplet" "zabbix_server" {
-  image    = "centos-8-x64"
+  image    = "centos-stream-8-x64"
   name     = "zabbix-server.meinit.nl"
   region   = var.region
   size     = local.zabbix_server_droplet_size
@@ -25,7 +25,7 @@ resource "digitalocean_droplet" "zabbix_server" {
 }
 
 resource "digitalocean_droplet" "mysql_server" {
-  image    = "centos-8-x64"
+  image    = "centos-stream-8-x64"
   name     = "mysql-server.meinit.nl"
   region   = var.region
   size     = local.mysql_server_droplet_size
